@@ -30,7 +30,19 @@ public class PlayerAnim : MonoBehaviour
     {
         if(Movement.direction.sqrMagnitude > 0)
         {
-            anim.SetInteger("Transition", 1);
+            if(Movement.inRoll)
+            {
+                if(!anim.GetCurrentAnimatorStateInfo(0).IsName("Roll"))
+                {
+                    anim.SetTrigger("OnRoll");
+                }
+                
+            }
+            else
+            {
+                anim.SetInteger("Transition", 1);
+            }
+            
         }
         else
         {

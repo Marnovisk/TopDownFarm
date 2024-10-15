@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     
     private Vector2 _direction;
     private bool _inRun;
+    private bool _inRoll;
 
     public Vector2 direction
     {
@@ -27,6 +28,12 @@ public class PlayerMovement : MonoBehaviour
         set {_inRun = value;}
     }
 
+    public bool inRoll
+    {
+        get {return _inRoll;}
+        set {_inRoll = value;}
+    }
+
     private void Start()
     {
         rig = GetComponent<Rigidbody2D>();
@@ -37,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
     {
         OnInput();        
         OnRun();
+        OnRoll();
     }
 
     private void FixedUpdate()
@@ -67,5 +75,21 @@ public class PlayerMovement : MonoBehaviour
             speed = initialSpeed;
             _inRun = false;
         }   
+    }
+
+    void OnRoll()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            speed = runSpeed;
+            _inRoll = true;            
+        } 
+        if(Input.GetKeyUp(KeyCode.Space))
+        {
+            speed = initialSpeed;
+            _inRoll = false;            
+        } 
+        
+         
     }
 }
